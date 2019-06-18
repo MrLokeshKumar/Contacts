@@ -1,20 +1,18 @@
 
-// Setting screen
 import React, { Component } from 'react';
-//import react in our code.
 import { Text, View, AsyncStorage, FlatList, Image } from 'react-native';
-//import all the components we are going to use.
 import ContactDetails from './ContactDetails'
 export default class Recents extends React.Component {
   state = {
     data: [],
-    keys:[]
+    keys:[],
+    fdata:[]
   }
   componentDidMount() {
     console.log('lokesh')
     this.fetchAllItems();
   }
-
+  
 
   fetchAllItems = async () => {
     try {
@@ -23,54 +21,50 @@ export default class Recents extends React.Component {
       this.setState(() => ({ data: items,keys:keys }))
       console.log('items:', this.state.data)
       console.log('keys:', this.state.keys)
+      var data=[]
+      this.state.data.map((val)=>{
+        console.log(val[1]);
+
+        data.push(JSON.parse(val[1]));
+      })
+      this.setState(() => ({ fdata: data }))
+      console.log('fruits',data)
+      console.log('state fdata',this.state.fdata)
     } catch (error) {
       console.log(error, "problemo")
     }
   }
-  // dispData = async (obj) => {
-  //   try {
-  //     const keys = await AsyncStorage.getAllKeys()
-  //     const items = await AsyncStorage.multiGet(keys)
-  //     let user = await AsyncStorage.getItem(obj.key);
-  //     let parsed = JSON.parse(user);
-  //     this.setState(() => ({ data: parsed }))
-  //     console.log('data retrieved successfully', this.state.data);
-  //   }
-  //   catch{
-  //     console.log('error');
-  //   }
-  // }
   render() {
     return (
-      <Text>lokesh</Text>
-      // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      //   {/* <Text>{this.parsed.phone}</Text> */}
-      //   <FlatList
-      //     data={this.state.data}
-      //     renderItem={({ item }) => {
-      //       console.log('keyextractor', item)
-      //       return (
-      //         <View style={styles.containerStyle}>
-      //           <View style={styles.thumbnailContainerStyle}>
-      //             <Image
-      //               style={styles.thumbnailStyle}
-      //               source={{ uri: item.url }}
-      //             />
-      //           </View>
-      //           <View style={styles.headerContentStyle}>
-      //             <Text style={styles.headerTextStyle}>{item.name}</Text>
-      //             <Text>{item.phone}</Text>
-      //           </View>
-      //         </View>
-      //       )
-      //     }}
-      //     keyExtractor={item => {
-      //       item.phone
-      //     }
-      //     }
-      //   // ListHeaderComponent={()=>{}}
-      //   />
-      // </View>
+      //<Text>lokesh</Text>
+      <View style={{ flex: 1 }}>
+        {/* <Text>{this.parsed.phone}</Text> */}
+        <FlatList
+          data={this.state.fdata}
+          renderItem={({ item }) => {
+            console.log('keyextractor', this.item.phone)
+            return (
+              <View style={styles.containerStyle}>
+                <View style={styles.thumbnailContainerStyle}>
+                  <Image
+                    style={styles.thumbnailStyle}
+                    source={{ uri: item.url }}
+                  />
+                </View>
+                <View style={styles.headerContentStyle}>
+                  <Text style={styles.headerTextStyle}>{item.name}</Text>
+                  <Text>{item.phone}</Text>
+                </View>
+              </View>
+            )
+          }}
+          keyExtractor={item => {
+            item.phone
+          }
+          }
+        // ListHeaderComponent={()=>{}}
+        />
+      </View>
     );
   }
 }

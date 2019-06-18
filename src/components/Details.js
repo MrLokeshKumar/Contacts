@@ -25,15 +25,20 @@ class Details extends React.Component {
         try{
           let user=await AsyncStorage.getItem(obj.phone);
           let parsed=JSON.parse(user);
-          console.log('data retrieved successfully',parsed);
+          console.log('parsed data retrieved successfully',parsed);
         }
         catch{
           console.log('error');
         }
       }  
-    AsyncFunction=(obj)=>{
-          AsyncStorage.setItem(obj.phone,JSON.stringify(obj));
-          this.dispData(obj);
+    AsyncFunction=()=>{
+        let object ={
+            name:this.state.name,
+            phone:this.state.phone,
+            url:this.state.url
+        }
+          AsyncStorage.setItem(this.state.phone,JSON.stringify(object));
+          this.dispData(object);
     }
 
     render() {
@@ -75,7 +80,7 @@ class Details extends React.Component {
                    <Button 
                    color='#663399'
                    title='Save'
-                   onPress={()=>{this.AsyncFunction(obj)}}
+                   onPress={()=>{this.AsyncFunction()}}
                    > 
                    </Button>
                    </View>
