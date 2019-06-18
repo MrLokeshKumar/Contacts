@@ -39,6 +39,7 @@ class Details extends React.Component {
         }
           AsyncStorage.setItem(this.state.phone,JSON.stringify(object));
           this.dispData(object);
+          //this.props.navigation.navigate('Recents');
     }
 
     render() {
@@ -54,11 +55,11 @@ class Details extends React.Component {
                         source={{ uri: this.state.url }}
                     />
                 </View>
-                <View style={{ flex: 1, paddingTop: 20 }}>
-                    <View style={{flex:1}}>
-                        <Ionicons name='md-contact' size={25} color='black' />
+                <View style={{ flex: 1, paddingTop: 20}}>
+                    <View style={{flex:1,flexDirection:'row' ,justifyContent:'center'}}>
+                        <Ionicons name='md-contact' size={35} color='black' />
                         <TextInput
-                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            style={{ height: 40, borderBottomWidth: 2,borderBottomColor:'#663399',alignSelf:'center' }}
                             editable={true}
                             placeholderTextColor={'black'}
                             onChangeText={(text)=>this.setState({name:text})}
@@ -66,10 +67,10 @@ class Details extends React.Component {
                         >
                         </TextInput>
                     </View>
-                    <View style={{flex:1}}>
-                        <Ionicons name='ios-call' size={25} color='black' />
+                    <View style={{flex:1,flexDirection:'row',justifyContent:'center' }}>
+                        <Ionicons name='ios-call' size={35} color='black' />
                         <TextInput
-                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            style={{ height: 40, borderBottomWidth: 2,borderBottomColor:'#663399' ,alignSelf:'center'}}
                             editable={true}
                             placeholderTextColor={'black'}
                             onChangeText={(text)=>this.setState({phone:text})}
@@ -77,12 +78,13 @@ class Details extends React.Component {
                         ></TextInput>
                     </View>
                    <View style={{flex:2,paddingTop:5}}>
-                   <Button 
-                   color='#663399'
-                   title='Save'
-                   onPress={()=>{this.AsyncFunction()}}
-                   > 
-                   </Button>
+                   <TouchableOpacity
+                    onPress={()=>{this.AsyncFunction()}}
+                    style={styles.buttonStyle}>
+                   <Text style={styles.textStyle}>
+                     Save
+                   </Text>
+                 </TouchableOpacity>
                    </View>
                 </View>
                 
@@ -102,6 +104,24 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         width: null,
-    }
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: 'black',
+        fontSize: 16,
+        fontWeight: '600',
+        paddingTop: 10,
+        paddingBottom: 10
+      },
+      buttonStyle: {
+        flex: 1,
+        alignSelf: 'stretch',
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: '#663399',
+        marginLeft: 5,
+        marginRight: 5
+      }
 
 };

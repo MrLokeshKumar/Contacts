@@ -38,11 +38,10 @@ export default class Recents extends React.Component {
     return (
       //<Text>lokesh</Text>
       <View style={{ flex: 1 }}>
-        {/* <Text>{this.parsed.phone}</Text> */}
         <FlatList
           data={this.state.fdata}
           renderItem={({ item }) => {
-            console.log('keyextractor', this.item.phone)
+           // console.log('keyextractor', this.item.phone)
             return (
               <View style={styles.containerStyle}>
                 <View style={styles.thumbnailContainerStyle}>
@@ -59,7 +58,7 @@ export default class Recents extends React.Component {
             )
           }}
           keyExtractor={item => {
-            item.phone
+            item.name
           }
           }
         // ListHeaderComponent={()=>{}}

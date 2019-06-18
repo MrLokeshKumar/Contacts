@@ -3,7 +3,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator,
   createAppContainer ,
   createMaterialTopTabNavigator,
-  createStackNavigator
+  createStackNavigator,
  } from 'react-navigation';
 import HomeScreen from './components/Home';
 import Contacts from './components/Contacts';
@@ -27,10 +27,8 @@ const StackNavigator = createStackNavigator({
       }
     },
      Details:{
-       screen:Details,
-       
-     },
-   
+       screen:Details, 
+     }
    });
 
 //createMaterialTopTabNavigator
