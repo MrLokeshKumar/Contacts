@@ -28,6 +28,7 @@ const StackNavigator = createStackNavigator({
     },
      Details:{
        screen:Details,
+       
      },
    
    });

@@ -3,26 +3,15 @@ import {View,Image,TouchableOpacity,Text,AsyncStorage} from 'react-native';
 // import {AsyncStorage} from 'AsyncStorage'
 import {withNavigation} from 'react-navigation';
 class ContactDetails extends React.Component{
-   dispData = async ()=>{
-    try{
-      let user=await AsyncStorage.getItem('(274)-912-5136');
-      let parsed=JSON.parse(user);
-      console.log('parsed data in async',parsed);
-    }
-    catch{
-      console.log('error');
-    }
-  }  
+  
   pressEvent=(item)=>{
        //console.log('itemmmm:',item)
       obj={
         name:item.name.first,
-        phone:item.phone,
-        url:item.picture.large
+        phone:item.cell,
+        url:item.picture.large,
+        uri:item.picture.thumbnail
       }
-      AsyncStorage.setItem(obj.phone,JSON.stringify(obj));
-      //console.log('objj',obj)
-      this.dispData(obj);
       this.props.navigation.navigate("Details",{obj});
       }
     render(){

@@ -1,82 +1,102 @@
 import React from 'react'
-import { View, TextInput, Button,Image,Text } from 'react-native'
-import { connect } from 'react-redux';
-import { withNavigation } from 'react-navigation';
-import Card from './common/Card';
-import CardSection from './common/CardSection';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, TextInput, Button, Image, Text ,TouchableOpacity,AsyncStorage,ScrollView} from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 class Details extends React.Component {
-    static navigationOptions
-    render() {
-        const obj = this.props.navigation.getParam('obj', 'NO-ID');
-        console.log('objectttttttttt',obj)
-        return (
-            <View style={{flex:1,flexDirection:'column'}}>
-            <View  style={{flex:1}}>
-            <Image
-              style={styles.imageStyle}
-              source={{ uri: obj.url }}
-            />
-            </View>
-            <View  style={{flex:1}}>
-                <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                editable={true}
-                placeholderTextColor={'black'}
-                value={obj.name}
-                >
-                </TextInput>
-                <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                editable={true}
-                placeholderTextColor={'black'}
-                value={obj.phone}
-                ></TextInput>
-             <TouchableOpacity
-             
-             >
-                 <Text>Save</Text>
-             </TouchableOpacity>
-         </View>
-         </View>
+    state={
+        name:'',
+        phone:'',
+        url:''
+    }
+    componentDidMount(){
+        let obj= this.props.navigation.getParam('obj', 'NO-ID')
+        console.log('didmount obj',obj)
+        let name=obj.name;
+        let phone=obj.phone;
+        let url=obj.url;
+        console.log('name phone',name,phone)
+        this.setState(()=>({name:name,phone:phone,url:url}))
+    }
+    static navigationOptions = () => {
+        return {
+            title: obj ? obj.name + ' ' + 'Contact Info' : 'no name found',
+        };
+    };
+    dispData = async (obj)=>{
+        try{
+          let user=await AsyncStorage.getItem(obj.phone);
+          let parsed=JSON.parse(user);
+          console.log('data retrieved successfully',parsed);
+        }
+        catch{
+          console.log('error');
+        }
+      }  
+    AsyncFunction=(obj)=>{
+          AsyncStorage.setItem(obj.phone,JSON.stringify(obj));
+          this.dispData(obj);
+    }
 
+    render() {
+       // const obj = this.props.navigation.getParam('obj', 'NO-ID');
+       
+        return (
+            <ScrollView>
+            <View style={{ flex: 1, flexDirection: 'column' }}>
+             
+                <View style={{ flex: 1 }}>
+                    <Image
+                        style={styles.imageStyle}
+                        source={{ uri: this.state.url }}
+                    />
+                </View>
+                <View style={{ flex: 1, paddingTop: 20 }}>
+                    <View style={{flex:1}}>
+                        <Ionicons name='md-contact' size={25} color='black' />
+                        <TextInput
+                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            editable={true}
+                            placeholderTextColor={'black'}
+                            onChangeText={(text)=>this.setState({name:text})}
+                            value={this.state.name}
+                        >
+                        </TextInput>
+                    </View>
+                    <View style={{flex:1}}>
+                        <Ionicons name='ios-call' size={25} color='black' />
+                        <TextInput
+                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            editable={true}
+                            placeholderTextColor={'black'}
+                            onChangeText={(text)=>this.setState({phone:text})}
+                            value={this.state.phone}
+                        ></TextInput>
+                    </View>
+                   <View style={{flex:2,paddingTop:5}}>
+                   <Button 
+                   color='#663399'
+                   title='Save'
+                   onPress={()=>{this.AsyncFunction(obj)}}
+                   > 
+                   </Button>
+                   </View>
+                </View>
+                
+            </View>
+            </ScrollView>
+         
         )
     }
 
 }
-const mapStateToProps = (state) => {
-    console.log('in Details::', state);
-    return (
-        {
-            data: state
-        }
-    )
-}
-export default connect(mapStateToProps)(Details);
+
+export default Details;
 const styles = {
     imageStyle: {
-        height: 100,
+        height: 250,
         flex: 1,
-        justifyContent:'center',
-        alignItems:'center',
-        width: null,
-      },
-    headerContentStyle: {
-        flexDirection: 'column',
-        justifyContent: 'space-around'
-      },
-      headerTextStyle: {
-        fontSize: 18
-      },
-      thumbnailStyle: {
-        height: 50,
-        width: 50
-      },
-      thumbnailContainerStyle: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 10,
-        marginRight: 10
-      }
-   
-  };
+        width: null,
+    }
+
+};
