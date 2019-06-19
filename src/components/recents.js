@@ -2,21 +2,30 @@
 import React from 'react';
 import { Text, View, AsyncStorage, FlatList, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation'
-export default class Recents extends React.Component {
-  state = {
+export default class Recents extends React.PureComponent {
+ constructor(props){
+   super(props)
+  this.state = {
     data: [],
     keys: [],
     fdata: [],
-    rerender: []
+    rerender: ''
   }
-
+  console.log('in constructor');
+ }
+  
+  componentDidUpdate(){
+    console.log('in did update',this.props.navigation)
+  }
+  
   componentDidMount() {
-    this.fetchAllItems();
-    }
-  // componentDidMount() {
-  //   // console.log('lokesh')
-
-  //   this.fetchAllItems();
+    console.log('in did mount',this.props.navigation)
+     this.fetchAllItems();
+    console.log('rerendering recents');
+  }
+  // componentWillUnmount() {
+  //   // Remove the event listener
+  //   this.focusListener.remove();
   // }
 
 
@@ -50,16 +59,10 @@ export default class Recents extends React.Component {
 
         //<Text>lokesh</Text>
         <View style={{ flex: 1 }}>
-          <NavigationEvents
-            onWillFocus={() => {
-              let rerender = this.props.navigation.getParam('rerender', 'no-render')
-              this.setState(() => ({ rerender: rerender }))
-            }}
-          />
           <FlatList
             data={this.state.fdata}
             renderItem={({ item }) => {
-              console.log('urllll', item.url)
+              //console.log('urllll', item.url)
               return (
                 <View style={styles.containerStyle}>
                   <View style={styles.thumbnailContainerStyle}>

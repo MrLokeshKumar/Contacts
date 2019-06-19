@@ -11,14 +11,18 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import AsyncStorage from '@react-native-community/async-storage';
 
-class Details extends React.Component {
+class Details extends React.PureComponent {
     state = {
         name: '',
         phone: '',
         url: '',
-        cell: ''
-    }
+        cell: '',
+        rerender:''
+    }  
     componentDidMount() {
+        // this.focusListener = this.props.navigation.addListener("didFocus", () => {
+        //  this.setState(()=>({rerender:'rerender'}))
+        // });
         let obj = this.props.navigation.getParam('obj', 'NO-ID')
         console.log('didmount obj', obj)
         let name = obj.name;
@@ -28,6 +32,12 @@ class Details extends React.Component {
         console.log('name phone cell', name, phone, cell)
         this.setState(() => ({ name: name, phone: phone, url: url, cell: cell }))
     }
+
+    // componentWillUnmount() {
+    //     // Remove the event listener
+    //     this.focusListener.remove();
+    //   }
+
     static navigationOptions = () => {
 
         return {
@@ -59,8 +69,10 @@ class Details extends React.Component {
         AsyncStorage.setItem(this.state.phone, JSON.stringify(object));
         this.dispData(object);
         // this.props.navigation.navigate('Home',{rerender:'rerender'});
-        this.props.navigation.navigate('Recents',{rerender:'rerender'});
+        this.props.navigation.navigate('Recents',);
     }
+   
+    
     render() {
         return (
             <ScrollView style={{ backgroundColor: 'white' }}>

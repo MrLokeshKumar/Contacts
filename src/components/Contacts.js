@@ -7,7 +7,7 @@ import { Searchbar } from 'react-native-paper';
 import ContactDetails from './ContactDetails'
 import Spinner from './common/Spinner';
 
-class Contacts extends React.Component {
+class Contacts extends React.PureComponent {
 
 
   state = {
@@ -32,17 +32,6 @@ class Contacts extends React.Component {
     if (this.props.data.loading === false) {
       return (
         <View style={{ flex: 1 }}>
-          {/* <SearchBar
-            style={{ backgroundColor: 'white' }}
-            round={true}
-            lightTheme={true}
-            placeholder="Search..."
-            autoCapitalize='none'
-            autoCorrect={false}
-            onChangeText={this.search}
-            value={this.state.searchText}
-          /> */}
-
 
           <Searchbar
             placeholder="Search Contacts"
@@ -56,8 +45,8 @@ class Contacts extends React.Component {
           <FlatList
             data={this.state.searchText !== '' ? this.state.data : this.props.data.List.results}
             renderItem={({ item }) => {
-              console.log('new filter data', this.state.data);
-              console.log('search text', this.state.searchText)
+              // console.log('new filter data', this.state.data);
+              // console.log('search text', this.state.searchText)
               return (
                 <ContactDetails item={item} navigation={this.props.navigation} />
               )

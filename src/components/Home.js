@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -7,7 +7,7 @@ import Timer from './Timer'
 import Search from './SearchBar'
 import Icons from './Icons'
 
-class HomeScreen extends Component {
+class HomeScreen extends PureComponent {
   componentDidMount() {
     this.props.ContactsList();
   }
