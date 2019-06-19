@@ -25,12 +25,8 @@ class Details extends React.PureComponent {
         // });
         let obj = this.props.navigation.getParam('obj', 'NO-ID')
         console.log('didmount obj', obj)
-        let name = obj.name;
-        let phone = obj.phone;
-        let url = obj.url;
-        let cell = obj.cell
-        console.log('name phone cell', name, phone, cell)
-        this.setState(() => ({ name: name, phone: phone, url: url, cell: cell }))
+        console.log('name phone cell', obj.name, obj.phone, obj.cell)
+        this.setState(() => ({ name: obj.name, phone: obj.phone, url: obj.url, cell: obj.cell }))
     }
 
     // componentWillUnmount() {
