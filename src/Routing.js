@@ -1,40 +1,56 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createBottomTabNavigator,
-  createAppContainer ,
+import {
+  createBottomTabNavigator,
+  createAppContainer,
   createMaterialTopTabNavigator,
-  createStackNavigator
- } from 'react-navigation';
+  createStackNavigator,
+} from 'react-navigation';
+
 import HomeScreen from './components/Home';
 import Contacts from './components/Contacts';
 import Recents from './components/recents';
 import Details from './components/Details';
-import ContactDetails from './components/ContactDetails'
-class Routes extends Component{
-    render()
-    {
-        return(
-             <Router />
-        )
-    }
+
+class Routes extends Component {
+  render() {
+    return (
+      <Router />
+    )
+  }
 }
+//stacknavigation
+const StackNavigator = createStackNavigator({
+  Contacts: {
+    screen: Contacts,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Details: {
+    screen: Details,
+    navigationOptions: {
+      headerHeight: 10
+    }
+  },
+
+});
+
 //createMaterialTopTabNavigator
 
 const TabScreen = createMaterialTopTabNavigator(
-  { 
+  {
     Recents: { screen: Recents },
-    Contacts: { screen: Contacts },
-  
+    Contacts: { screen: StackNavigator },
   },
   {
-    
     tabBarPosition: 'top',
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      initialRouteName:Recents,
-      activeTintColor: '#FFFFFF',
-      inactiveTintColor: '#F8F8F8',
+      initialRouteName: Recents,
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'white',
       style: {
         backgroundColor: '#663399',
       },
@@ -53,17 +69,17 @@ const TabScreen = createMaterialTopTabNavigator(
 
 //createBottomTabNavigator
 const TabNavigator = createBottomTabNavigator(
-    {
-  Home:HomeScreen,
-  Phone:TabScreen
-},
-{  
+  {
+    Home: HomeScreen,
+    Phone: TabScreen
+  },
+  {
     defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({tintColor }) => {
+      tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'Home') {
-          return <Ionicons name='ios-home' size={25} color={tintColor} />; 
+          return <Ionicons name='ios-home' size={25} color={tintColor} />;
         } else if (routeName === 'Phone') {
           iconName = 'ios-call';
           return <Ionicons name={iconName} size={25} color={tintColor} />;
@@ -71,7 +87,7 @@ const TabNavigator = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      style: { 
+      style: {
         backgroundColor: '#663399',
       },
       activeTintColor: 'tomato',
@@ -82,37 +98,8 @@ const TabNavigator = createBottomTabNavigator(
 
 //createStackNavigator
 
-const StackNavigator = createStackNavigator({
-  TabNavigator:{
-    screen:TabNavigator,
-    navigationOptions: {
-      header:null,
-      headerTintColor: '#FFFFFF',
-    },
-  },
-  TabScreen: { 
-    screen: TabScreen ,
-    navigationOptions: {
-      header:null,
-      headerTintColor: '#FFFFFF',
-    },
-  },
-  ContactDetails:{
-    screen:ContactDetails,
-    navigationOptions: {
-      header:null,
-      headerTintColor: '#FFFFFF',
-    }
-  },
-  Details:{
-    screen:Details,
-    navigationOptions: {
-      header:null,
-      headerTintColor: '#FFFFFF',
-    }
-  }
-});
-const Router=createAppContainer(StackNavigator);
+
+const Router = createAppContainer(TabNavigator);
 
 export default Router;
 

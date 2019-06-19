@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-import Routes from './Routing2';
+import Routes from './Routing';
 import Reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 

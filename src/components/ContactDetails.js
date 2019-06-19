@@ -9,7 +9,7 @@ class ContactDetails extends React.Component {
       name: item.name.first,
       cell: item.cell,
       url: item.picture.large,
-      uri: item.picture.thumbnail,
+      thumurl: item.picture.thumbnail,
       phone:item.phone
       
     }

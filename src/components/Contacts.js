@@ -32,7 +32,6 @@ class Contacts extends React.PureComponent {
     if (this.props.data.loading === false) {
       return (
         <View style={{ flex: 1 }}>
-
           <Searchbar
             placeholder="Search Contacts"
             style={{ borderColor: 'white', borderWidth: 1 }}

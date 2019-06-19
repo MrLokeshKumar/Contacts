@@ -17,17 +17,18 @@ class Details extends React.PureComponent {
         phone: '',
         url: '',
         cell: '',
+        thumburl:'',
         rerender: ''
     }
     componentDidMount() {
+        
         let obj = this.props.navigation.getParam('obj', 'NO-ID')
-        console.log('didmount obj', obj)
-        console.log('name phone cell', obj.name, obj.phone, obj.cell)
         this.setState(() => ({
             name: obj.name,
             phone: obj.phone,
             url: obj.url,
-            cell: obj.cell
+            cell: obj.cell,
+            thumburl:obj.thumburl
         }))
     }
 
