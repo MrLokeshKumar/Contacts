@@ -1,7 +1,8 @@
 import React from 'react'
 import { View,TextInput } from 'react-native'
 import { Searchbar } from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+
 export default function Search() {
     return (
         <View style={{ flex: 1,justifyContent:'flex-end'}}>
@@ -15,8 +16,6 @@ export default function Search() {
             <Searchbar
               placeholder="google search"
               style={{borderColor:'grey'}}
-              // onChangeText={query => { this.setState({ firstQuery: query }); }}
-              // value={firstQuery}
             />  
         </View>
     )

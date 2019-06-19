@@ -1,27 +1,31 @@
 
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import { SearchBar } from 'react-native-elements';
+import { Searchbar } from 'react-native-paper';
+
 import ContactDetails from './ContactDetails'
 import Spinner from './common/Spinner';
-import { Searchbar } from 'react-native-paper';
+
 class Contacts extends React.Component {
 
+
   state = {
-    searchText: "",
-    data: this.props.data.List.results,
-    filteredData: []
+    searchText: '',
+    data: '',
+    filteredData: [],
+    fdata: ''
   };
 
-  search = (searchText) => {
-    this.setState({ searchText: searchText });
-
-    let filteredData = this.props.data.List.results.filter(function (item) {
-      return item.name.first.includes(searchText);
+  searchFilterFunction = text => {
+    this.setState({ searchText: text });
+    const array = this.props.data.List.results
+    const newData = array.filter(item => {
+      const itemData = `${item.name.first.toUpperCase()}`;
+      const textData = text.toUpperCase();
+      return itemData.includes(textData);
     });
-
-    this.setState({ filteredData: filteredData });
+    this.setState({ data: newData });
   };
 
   Condition = () => {
@@ -41,19 +45,21 @@ class Contacts extends React.Component {
 
 
           <Searchbar
-              placeholder="Search"
-              style={{borderColor:'lavender',borderWidth:1}}
-              autoCapitalize='none'
-              autoCorrect={false}
-              onChangeText={this.search}
-              round={true}
-              value={this.state.searchText}
-            />
+            placeholder="Search Contacts"
+            style={{ borderColor: 'white', borderWidth: 1 }}
+            autoCapitalize='none'
+            autoCorrect={false}
+            onChangeText={this.searchFilterFunction}
+            round={true}
+            value={this.state.searchText}
+          />
           <FlatList
-            data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.props.data.List.results}
+            data={this.state.searchText !== '' ? this.state.data : this.props.data.List.results}
             renderItem={({ item }) => {
+              console.log('new filter data', this.state.data);
+              console.log('search text', this.state.searchText)
               return (
-                <ContactDetails item={item} navigation={this.props.navigation}/>
+                <ContactDetails item={item} navigation={this.props.navigation} />
               )
             }}
             keyExtractor={item =>

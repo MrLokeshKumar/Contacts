@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import {Text,View,StyleSheet} from 'react-native'
+
 export default class Timer extends Component {
     state={
         time:'',
         date:''
     }
-
     componentDidMount(){
         // this.intervalID = setInterval(() => this.renderDate(),1000);
         this.renderDate();
