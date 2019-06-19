@@ -17,22 +17,19 @@ class Details extends React.PureComponent {
         phone: '',
         url: '',
         cell: '',
-        rerender:''
-    }  
+        rerender: ''
+    }
     componentDidMount() {
-        // this.focusListener = this.props.navigation.addListener("didFocus", () => {
-        //  this.setState(()=>({rerender:'rerender'}))
-        // });
         let obj = this.props.navigation.getParam('obj', 'NO-ID')
         console.log('didmount obj', obj)
         console.log('name phone cell', obj.name, obj.phone, obj.cell)
-        this.setState(() => ({ name: obj.name, phone: obj.phone, url: obj.url, cell: obj.cell }))
+        this.setState(() => ({
+            name: obj.name,
+            phone: obj.phone,
+            url: obj.url,
+            cell: obj.cell
+        }))
     }
-
-    // componentWillUnmount() {
-    //     // Remove the event listener
-    //     this.focusListener.remove();
-    //   }
 
     static navigationOptions = () => {
 
@@ -64,11 +61,11 @@ class Details extends React.PureComponent {
         }
         AsyncStorage.setItem(this.state.phone, JSON.stringify(object));
         this.dispData(object);
-        // this.props.navigation.navigate('Home',{rerender:'rerender'});
-        this.props.navigation.navigate('Recents',);
+        // this.props.navigation.replace('Home',{rerender:'rerender'});
+        this.props.navigation.navigate('Recents');
     }
-   
-    
+
+
     render() {
         return (
             <ScrollView style={{ backgroundColor: 'white' }}>
@@ -82,13 +79,13 @@ class Details extends React.PureComponent {
                     </View>
 
                     <View style={styles.inputContainerStyle}>
-                       
+
                         <View style={styles.iconImageContainerOne}>
-                            
+
                             <View style={styles.iconStyle}>
                                 <Ionicons name='md-contact' size={35} color='black' />
                             </View>
-                            
+
                             <View style={styles.inputContainerStyle}>
                                 <TextInput
                                     style={styles.textInputStyle}
@@ -103,11 +100,11 @@ class Details extends React.PureComponent {
                         </View>
 
                         <View style={styles.iconImageContainerTwo}>
-                            
+
                             <View style={styles.iconStyle}>
                                 <Ionicons name='ios-call' size={35} color='black' />
                             </View>
-                            
+
                             <View style={styles.inputContainerStyle}>
                                 <TextInput
                                     style={styles.textInputStyle}
@@ -117,19 +114,19 @@ class Details extends React.PureComponent {
                                     value={this.state.phone}
                                 ></TextInput>
                             </View>
-                        
+
                         </View>
-                       
+
                         <View style={styles.buttonParent}>
                             <TouchableOpacity
-                                onPress={() => { this.AsyncFunction() }}
+                                onPress={this.AsyncFunction}
                                 style={styles.buttonStyle}>
                                 <Text style={styles.textStyle}>
                                     Save
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                   
+
                     </View>
 
                 </View>
@@ -169,47 +166,47 @@ const styles = {
         marginLeft: 5,
         marginRight: 5
     },
-    parentStyle:{
-        flex: 1, 
+    parentStyle: {
+        flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white'
     },
-    inputContainerStyle:{
+    inputContainerStyle: {
         flex: 1,
-        paddingTop: 20, 
+        paddingTop: 20,
         backgroundColor: 'white'
     },
-    iconStyle:{
-        justifyContent: 'flex-start', 
+    iconStyle: {
+        justifyContent: 'flex-start',
         paddingLeft: 10
     },
-    inputContainerStyle:{
-        flex: 1, 
+    inputContainerStyle: {
+        flex: 1,
         justifyContent: 'flex-start'
     },
-    textInputStyle:{
-        fontSize: 16, 
-        height: 40, 
-        borderBottomWidth: 1, 
-        borderBottomColor: '#663399', 
-        marginRight: 12, 
-        marginLeft: 10 
+    textInputStyle: {
+        fontSize: 16,
+        height: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: '#663399',
+        marginRight: 12,
+        marginLeft: 10
     },
-    buttonParent:{
+    buttonParent: {
         flex: 2,
-        paddingTop: 20, 
+        paddingTop: 20,
         backgroundColor: 'white'
     },
-    iconImageContainerTwo:{
-        flex: 1, 
-        flexDirection: 'row', 
-        paddingTop: 20, 
-        backgroundColor: 'white'
-    },
-    iconImageContainerOne:{
-        flex: 1, 
+    iconImageContainerTwo: {
+        flex: 1,
         flexDirection: 'row',
-        paddingTop: 20, 
+        paddingTop: 20,
+        backgroundColor: 'white'
+    },
+    iconImageContainerOne: {
+        flex: 1,
+        flexDirection: 'row',
+        paddingTop: 20,
     }
 
 

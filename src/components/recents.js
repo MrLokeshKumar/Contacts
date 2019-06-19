@@ -8,8 +8,9 @@ export default class Recents extends React.PureComponent {
   this.state = {
     data: [],
     keys: [],
-    fdata: [],
-    rerender: ''
+    fdata: '',
+    rerender: '',
+    recents:false
   }
   console.log('in constructor');
  }
@@ -38,23 +39,21 @@ export default class Recents extends React.PureComponent {
       console.log('keys:', this.state.keys)
       var data = []
       this.state.data.map((val) => {
-        console.log(val[1]);
         data.push(JSON.parse(val[1]));
       })
       this.setState(() => ({ fdata: data }))
       console.log('pushed data', data)
       console.log('state fdata', this.state.fdata)
+      if(data.length!==0)
+      {
+        this.setState(()=>({recents:true}))
+      }
     } catch (error) {
       console.log(error, "problemo")
     }
   }
   condition = () => {
-    if (this.state.fdata === []) {
-      return (
-        <Text>No Recents FAound</Text>
-      )
-    }
-    else {
+    if (this.state.recents ===true) {
       return (
 
         //<Text>lokesh</Text>
@@ -83,6 +82,14 @@ export default class Recents extends React.PureComponent {
           />
         </View>
       );
+     
+    }
+    else {
+      return (
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <Text  style={{fontSize:20,alignSelf:'center'}}>No Recents Found</Text>
+        </View>
+      )
     }
   }
   render() {
