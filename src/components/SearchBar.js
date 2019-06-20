@@ -4,6 +4,7 @@ import { Searchbar } from 'react-native-paper';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Search() {
+    console.log('searchbar rendering');
     return (
         <View style={{ flex: 1,justifyContent:'flex-end'}}>
              {/* <Ionicons name="ios-search" size={40} color="#000"/> */}

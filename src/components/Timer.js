@@ -1,32 +1,25 @@
-import React, { PureComponent } from 'react'
-import {Text,View,StyleSheet} from 'react-native'
-
-export default class Timer extends PureComponent {
+import React, { Component } from 'react'
+import {Text,View,StyleSheet} from 'react-native'    
+export default class Timer extends Component {
     state={
         time:'',
         date:''
     }
     componentDidMount(){
-        // this.intervalID = setInterval(() => this.renderDate(),1000);
         this.renderDate();
     }
     renderDate=()=>{
         setInterval( () => {
-          let Time = new Date().toLocaleString()
-          var date = new Date().getDate(); 
-          var month = new Date().getMonth() + 1; 
-          var year = new Date().getFullYear(); 
-          var hours = new Date().getHours(); 
-          var min = new Date().getMinutes(); 
-          var sec = new Date().getSeconds(); 
-          let DATE =  date + '/' + month + '/' + year 
-          let TIME =  hours + ':' + min + ':' + sec
-          this.setState({date:DATE ,time:TIME})
+          //let Time = new Date().toLocaleString() //this will fetch the both date and time
+          let date =  new Date().getDate() + '/' + new Date().getMonth() + 1 + '/' + new Date().getFullYear() 
+          let time =  new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
+          this.setState({date,time})
         },1000)
       }
     
     
     render() {
+        console.log('timer rerendering')
         const {time,date} =styles;
         return (
             <View style={{flex:2,justifyContent:'center',alignItems:'center'}}>

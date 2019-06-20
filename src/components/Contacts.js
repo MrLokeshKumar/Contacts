@@ -8,20 +8,15 @@ import ContactDetails from './ContactDetails'
 import Spinner from './common/Spinner';
 
 class Contacts extends React.PureComponent {
-
-
   state = {
     searchText: '',
-    data: '',
-    filteredData: [],
-    fdata: ''
+    data: ''
   };
 
   searchFilterFunction = text => {
-    this.setState({ searchText: text });
-    const array = this.props.data.List.results
-    const newData = array.filter(item => {
-      const itemData = `${item.name.first.toUpperCase()}`;
+    this.setState({ searchText: text }); 
+    const newData = this.props.data.List.results.filter(item => {
+      const itemData = item.name.first.toUpperCase();
       const textData = text.toUpperCase();
       return itemData.includes(textData);
     });
@@ -44,7 +39,7 @@ class Contacts extends React.PureComponent {
           <FlatList
             data={this.state.searchText !== '' ? this.state.data : this.props.data.List.results}
             renderItem={({ item }) => {
-              // console.log('new filter data', this.state.data);
+              console.log('new filter data', this.state.data);
               // console.log('search text', this.state.searchText)
               return (
                 <ContactDetails item={item} navigation={this.props.navigation} />
@@ -59,11 +54,10 @@ class Contacts extends React.PureComponent {
       );
 
     }
-    else {
-      return <Spinner />
-    }
+    return <Spinner />
   }
   render() {
+    console.log('contacts rerendering')
     return (
       this.Condition()
     )

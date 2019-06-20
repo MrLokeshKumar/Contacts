@@ -6,31 +6,26 @@ import {
     Text,
     TouchableOpacity,
     AsyncStorage,
-    ScrollView
+    ScrollView,
+    StyleSheet
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import AsyncStorage from '@react-native-community/async-storage';
 
-class Details extends React.PureComponent {
-    state = {
-        name: '',
-        phone: '',
-        url: '',
-        cell: '',
-        thumburl:'',
-        rerender: ''
-    }
-    componentDidMount() {
-        
+class Details extends React.Component {
+    constructor(props){
+        super(props)
         let obj = this.props.navigation.getParam('obj', 'NO-ID')
-        this.setState(() => ({
-            name: obj.name,
+        console.log('params in details',obj)
+        this.state = {
+            name: obj.name.first,
             phone: obj.phone,
-            url: obj.url,
-            cell: obj.cell,
-            thumburl:obj.thumburl
-        }))
+            url: obj.picture.large,
+            cell: obj.call,
+            thumburl:obj.picture.thumbnail
+        }
     }
+  
 
     static navigationOptions = () => {
 
@@ -39,7 +34,7 @@ class Details extends React.PureComponent {
                 height: 45,
                 backgroundColor: 'white'
             },
-            title: obj ? obj.name + ' ' + 'Contact Info' : 'no name found',
+            title: obj ? obj.name.first + ' ' + 'Contact Info' : 'no name found',
         };
     };
 
@@ -54,6 +49,7 @@ class Details extends React.PureComponent {
         }
     }
     AsyncFunction = () => {
+        console.log('state in details',this.state)
         let object = {
             name: this.state.name,
             phone: this.state.phone,
@@ -61,6 +57,7 @@ class Details extends React.PureComponent {
             cell: this.state.cell
         }
         AsyncStorage.setItem(this.state.phone, JSON.stringify(object));
+        console.log('stringify data', JSON.stringify(object))
         this.dispData(object);
         // this.props.navigation.replace('Home',{rerender:'rerender'});
         this.props.navigation.navigate('Recents');
@@ -75,7 +72,7 @@ class Details extends React.PureComponent {
                     <View style={{ flex: 1 }}>
                         <Image
                             style={styles.imageStyle}
-                            source={{ uri: this.state.url }}
+                            source={{ uri:this.state.url }}
                         />
                     </View>
 
@@ -140,7 +137,7 @@ class Details extends React.PureComponent {
 
 export default Details;
 
-const styles = {
+const styles=StyleSheet.create({
     imageStyle: {
         height: 270,
         flex: 1,
@@ -211,4 +208,4 @@ const styles = {
     }
 
 
-};
+})

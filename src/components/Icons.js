@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function Icons() {
     const { leftRight, topDown, container } = styles;
+    console.log('icons rerendering')
     return (
         <View style={container}>
             <View style={leftRight}>

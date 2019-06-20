@@ -1,8 +1,7 @@
-
 import React from 'react';
-import { Text, View, AsyncStorage, FlatList, Image } from 'react-native';
+import { Text, View, AsyncStorage, FlatList, Image, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-export default class Recents extends React.PureComponent {
+export default class Recents extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,17 +38,24 @@ export default class Recents extends React.PureComponent {
       console.log(error, "problemo")
     }
   }
+  pressEvent = (item) => {
+    obj={...item}
+    console.log('using spread',obj);
+    this.props.navigation.navigate("Details", { obj });
+  }
   condition = () => {
     if (this.state.recents === true) {
       return (
         <View style={{ flex: 1 }}>
           <NavigationEvents
-            onDidFocus={() => this.fetchAllItems()}
+            onDidFocus={() => this.componentDidMount()}
           />
+          <TouchableOpacity
+            onPress={() => this.pressEvent(item)}
+          >
           <FlatList
             data={this.state.fdata}
             renderItem={({ item }) => {
-              //console.log('urllll', item.url)
               return (
                 <View style={styles.containerStyle}>
                   <View style={styles.thumbnailContainerStyle}>
@@ -65,21 +71,21 @@ export default class Recents extends React.PureComponent {
                 </View>
               )
             }}
-            keyExtractor={item => item.cell}
+            keyExtractor={item => item.phone}
           // ListHeaderComponent={()=>{}}
           />
+          </TouchableOpacity>
         </View>
       );
 
     }
-    else {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ fontSize: 20, alignSelf: 'center' }}>No Recents Found</Text>
-        </View>
-      )
-    }
+    return (
+      <View style={styles.plainTextContainerStyle}>
+        <Text style={styles.plainTextStyle}>No Recents Found</Text>
+      </View>
+    )
   }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -88,7 +94,7 @@ export default class Recents extends React.PureComponent {
     )
   }
 }
-const styles = {
+const styles = StyleSheet.create({
   headerContentStyle: {
     flexDirection: 'column',
     justifyContent: 'space-around'
@@ -114,5 +120,14 @@ const styles = {
     flexDirection: 'row',
     borderColor: '#ddd',
     position: 'relative'
+  },
+  plainTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center'
+  },
+  plainTextContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
-};
+})

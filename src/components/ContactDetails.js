@@ -1,18 +1,12 @@
 import React from 'react'
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, Image, TouchableOpacity,StyleSheet, Text } from 'react-native';
+
 
 class ContactDetails extends React.Component {
 
   pressEvent = (item) => {
-    //console.log('itemmmm:',item)
-    obj = {
-      name: item.name.first,
-      cell: item.cell,
-      url: item.picture.large,
-      thumurl: item.picture.thumbnail,
-      phone:item.phone
-      
-    }
+    obj={...item}
+    console.log('using spread',obj);
     this.props.navigation.navigate("Details", { obj });
   }
   render() {
@@ -36,13 +30,12 @@ class ContactDetails extends React.Component {
         </View>
       </TouchableOpacity>
     )
-
   }
 
 }
 export default ContactDetails
 
-const styles = {
+const styles =StyleSheet.create({
   headerContentStyle: {
     flexDirection: 'column',
     justifyContent: 'space-around'
@@ -69,4 +62,4 @@ const styles = {
     borderColor: '#ddd',
     position: 'relative'
   }
-};
+})
