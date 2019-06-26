@@ -25,7 +25,7 @@ class ContactDetails extends React.Component {
           </View>
           <View style={styles.headerContentStyle}>
             <Text style={styles.headerTextStyle}>{item.name.first}</Text>
-            <Text>{item.cell}</Text>
+            <Text>{item.phone}</Text>
           </View>
         </View>
       </TouchableOpacity>

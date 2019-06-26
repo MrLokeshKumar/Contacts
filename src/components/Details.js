@@ -38,9 +38,9 @@ class Details extends React.Component {
         };
     };
 
-    dispData = async (obj) => {
+    dispData = async (object) => {
         try {
-            let user = await AsyncStorage.getItem(obj.phone);
+            let user = await AsyncStorage.getItem(object.phone);
             let parsed = JSON.parse(user);
             console.log('parsed data retrieved successfully', parsed);
         }
@@ -56,11 +56,19 @@ class Details extends React.Component {
             url: this.state.url,
             cell: this.state.cell
         }
-        AsyncStorage.setItem(this.state.phone, JSON.stringify(object));
-        console.log('stringify data', JSON.stringify(object))
-        this.dispData(object);
-        // this.props.navigation.replace('Home',{rerender:'rerender'});
-        this.props.navigation.navigate('Recents');
+        if(this.state.name!=='' && this.state.phone!==''){
+            AsyncStorage.setItem(this.state.phone, JSON.stringify(object));
+            console.log('stringify data', JSON.stringify(object))
+            this.dispData(object);
+            // this.props.navigation.replace('Home',{rerender:'rerender'});
+            this.props.navigation.navigate('Recents');
+            this.props.navigation.dispatch(Details);
+        }
+        else{
+            alert('empty fields are not acceptable');
+        }
+
+      
     }
 
 
@@ -84,7 +92,7 @@ class Details extends React.Component {
                                 <Ionicons name='md-contact' size={35} color='black' />
                             </View>
 
-                            <View style={styles.inputContainerStyle}>
+                            <View style={[styles.inputContainerStyle]}>
                                 <TextInput
                                     style={styles.textInputStyle}
                                     editable={true}
@@ -105,7 +113,7 @@ class Details extends React.Component {
 
                             <View style={styles.inputContainerStyle}>
                                 <TextInput
-                                    style={styles.textInputStyle}
+                                    style={[styles.textInputStyle,{borderBottomWidth:2}]}
                                     editable={true}
                                     placeholderTextColor={'black'}
                                     onChangeText={(text) => this.setState({ phone: text })}

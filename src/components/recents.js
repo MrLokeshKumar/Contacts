@@ -4,6 +4,7 @@ import { NavigationEvents } from 'react-navigation';
 export default class Recents extends React.Component {
   constructor(props) {
     super(props)
+    this.fetchAllItems();
     this.state = {
       data: [],
       keys: [],
@@ -16,7 +17,6 @@ export default class Recents extends React.Component {
   componentDidMount() {
     this.fetchAllItems();
   }
-
   fetchAllItems = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys()
@@ -38,11 +38,6 @@ export default class Recents extends React.Component {
       console.log(error, "problemo")
     }
   }
-  pressEvent = (item) => {
-    obj={...item}
-    console.log('using spread',obj);
-    this.props.navigation.navigate("Details", { obj });
-  }
   condition = () => {
     if (this.state.recents === true) {
       return (
@@ -50,9 +45,6 @@ export default class Recents extends React.Component {
           <NavigationEvents
             onDidFocus={() => this.componentDidMount()}
           />
-          <TouchableOpacity
-            onPress={() => this.pressEvent(item)}
-          >
           <FlatList
             data={this.state.fdata}
             renderItem={({ item }) => {
@@ -66,7 +58,7 @@ export default class Recents extends React.Component {
                   </View>
                   <View style={styles.headerContentStyle}>
                     <Text style={styles.headerTextStyle}>{item.name}</Text>
-                    <Text>{item.cell}</Text>
+                    <Text>{item.phone}</Text>
                   </View>
                 </View>
               )
@@ -74,7 +66,7 @@ export default class Recents extends React.Component {
             keyExtractor={item => item.phone}
           // ListHeaderComponent={()=>{}}
           />
-          </TouchableOpacity>
+        
         </View>
       );
 

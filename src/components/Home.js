@@ -10,6 +10,9 @@ import Icons from './Icons'
 class HomeScreen extends Component {
   componentDidMount() {
     this.props.ContactsList();
+    // NetInfo.isConnected.addEventListener("connectionChange",hasInternetConnection =>
+    //     console.log("hasInternetConnection:", hasInternetConnection)
+    // )
   }
   render() {
     return (
